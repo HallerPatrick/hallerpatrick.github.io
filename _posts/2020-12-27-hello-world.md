@@ -12,7 +12,7 @@ This is my first blog post with **Gitub Pages**.
 
 
 My first blog post will be a import of a already written post on my own website:
-[betterthannothing.blog](betterthannothing.blog).
+[betterthannothing.blog](https://betterthannothing.blog).
 
 It is about:
 
