@@ -1,9 +1,12 @@
 ---
 layout: post
-title: "Rust Crate: time-humanize"
+layout_type: "Demo"
+title_prefix: "time-humanize"
+title: "A Rust crate to display duration of time in a human readable format"
 comments: true
 description: "A crate to display duration of time in a human readable format"
 keywords: "library, crate, time"
+code_link: "https://github.com/HallerPatrick/time-humanize"
 ---
 
 
