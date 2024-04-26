@@ -16,12 +16,12 @@ code_link: "https://github.com/flairNLP/fabricator"
 
 > Our paper got accepted at EMNLP 2023 Demo Track!
 
-In the realm of NLP, the creation of high-quality labeled data has been a significant bottleneck. Enter Fabricator, a **toolkit designed to harness the power of LLMs for generating vast, labeled datasets**. This approach not only promises to save time and resources but also opens new avenues for research and application in machine learning.
+In the realm of machine and especially NLP, the creation of high-quality labeled data has been a significant bottleneck. We therfore present Fabricator, a **toolkit designed to harness the power of LLMs for generating vast, labeled datasets**. This approach not only promises to save time and resources but also opens new avenues for research and application in machine learning.
 
 
 ## How It Works
 
-By prompting LLMs to produce data for specific tasks, Fabricator efficiently creates training material for downstream NLP models. Imagine generating hundreds of movie reviews with varying sentiments at the push of a button - that's the kind of efficiency we're talking about.
+By prompting LLMs to produce data for specific tasks, Fabricator efficiently creates training material for downstream NLP models. Imagine generating hundreds of movie reviews with varying sentiments at the push of a button.
 <div class="divider"></div>
 
 <p align="center">-
@@ -34,7 +34,7 @@ By prompting LLMs to produce data for specific tasks, Fabricator efficiently cre
 
 ### Versatility and Integration
 
-Fabricator stands out by supporting a wide array of NLP tasks and offering seamless integration with well-known libraries. Whether you're working on text classification, entity recognition, or any other NLP challenge, Fabricator streamlines the process of dataset creation.
+Fabricator supports a wide array of NLP tasks and offering seamless integration with well-known libraries. Whether you're working on text classification, entity recognition, or any other NLP challenge, Fabricator helps you generate the data you need.
 
 <p align="center">
   <img src="/assets/images/fabricator_template.png" alt="Fabricator" width="500" />
@@ -47,7 +47,7 @@ all provided arguments. The generator class creates training examples until the 
 
 ### Empowering Research and Development
 
-The toolkit is not just a time-saver; it's a game-changer for researchers and practitioners alike. By providing a means to quickly generate and experiment with new datasets, Fabricator paves the way for innovative research and practical applications in NLP.
+By providing a means to quickly generate and experiment with new datasets, Fabricator paves the way for innovative research and practical applications in NLP.
 
 ```py
 import os
@@ -85,8 +85,5 @@ generated_dataset.push_to_hub("generated-movie-reviews")
 
 Looking Ahead - As the toolkit evolves, it promises to expand its capabilities, supporting an even broader range of tasks and enhancing the NLP community's ability to tackle complex problems with novel solutions.
 
-Fabricator represents a significant step forward in the field of NLP, offering a practical solution to one of the field's longstanding challenges. By streamlining the dataset generation process, it enables both researchers and practitioners to focus more on innovation and less on the logistics of data preparation.
-
 For more details, refer to the original paper: [Fabricator](https://arxiv.org/pdf/2309.09582.pdf)
-
 
