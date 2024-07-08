@@ -1,6 +1,6 @@
 ---
 layout: post
-layout_type: "Paper"
+layout_type: "Paper/Demo"
 title_prefix: "Fabricator"
 title: "SOTA Dataset Generation in NLP"
 comments: false
