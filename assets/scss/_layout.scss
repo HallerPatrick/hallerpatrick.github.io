@@ -27,9 +27,74 @@ body {
   *zoom: 1;
 }
 
-body {
-  background-color: $base-background-color;
+html[data-theme="light"] {
+  --body-bg: #{$base-background-color};
+  --text-bg-color-accent: #{$black-color};
+  --text-color-accent: #{$white-color};
+  --text-color: #{$base-font-color};
+  --action-color: #{$action-color};
 }
+
+html[data-theme="dark"] {
+  --body-bg: #{$black-color};
+  --text-bg-color-accent: #{$white-color};
+  --text-color-accent: #{$black-color};
+  --text-color: #{$white-color};
+  --action-color: #{$white-color};
+}
+
+body {
+  background-color: var(--body-bg);
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color);
+}
+
+a {
+  color: var(--action-color);
+}
+
+.accented {
+  background-color: var(--text-bg-color-accent);
+  color: var(--text-color-accent);
+}
+
+
+#theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.0rem; /* Adjust size as needed */
+    font-weight: 700;
+    color: var(--text-bg-color-accent); /* Use your theme's text color variable */
+    transition: color 0.3s ease;
+  }
+
+#theme-toggle:hover {
+  color: var(--accent-color); /* Use your theme's accent color variable */
+}
+
+/* Hide sun icon when in dark mode */
+// html[data-theme="dark"] #theme-toggle .fa-sun {
+//   display: none;
+// }
+//
+// /* Show moon icon when in dark mode */
+// html[data-theme="dark"] #theme-toggle .fa-moon {
+//   display: inline-block;
+// }
+//
+// /* Hide moon icon when in light mode */
+// html[data-theme="light"] #theme-toggle .fa-moon {
+//   display: none;
+// }
+//
+// /* Show sun icon when in light mode */
+// html[data-theme="light"] #theme-toggle .fa-sun {
+//   display: inline-block;
+// }
 
 hr {
   border-top: none;
@@ -139,7 +204,7 @@ hr {
   display: block;
 
   a {
-    color: $action-color;
+    color: var(--action-color);
   }
 
   .article-title {
@@ -292,3 +357,4 @@ hr {
     }
   }
 }
+

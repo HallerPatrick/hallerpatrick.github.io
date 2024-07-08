@@ -21,8 +21,11 @@ title: Home
       {% endunless %}
       <article class="post-item">
         <span class="post-meta date-label">{{ post.date | date: "%b %d" }}</span>
-        <div class="article-title"><a class="post-link" href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">
-                <h5>({{ post.layout_type }})</h5> <span style="background-color: black; color:white">{{ post.title_prefix }}</span>: {{ post.title }}</a></div>
+        <div class="article-title">
+            <a class="post-link" href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">
+                <h5>({{ post.layout_type }})</h5> <span class="accented">{{ post.title_prefix }}</span>: {{ post.title }}
+            </a>
+        </div>
         <!-- Align to the right -->
         <div style="text-align: right">
         {% if post.paper_link %}

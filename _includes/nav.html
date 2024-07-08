@@ -5,6 +5,11 @@
     <ul class="navbar">
       <li><a href="{{ '/about' | prepend: site.baseurl | prepend: site.url }}">About me</a></li>
       <li><a href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" target="_blank">RSS</a></li>
+    <li>
+      <button id="theme-toggle" aria-label="Toggle dark mode">
+          <p id="mode-text">Dark Mode</p>
+      </button>
+    </li>
     </ul>
   </div>
 </nav>
