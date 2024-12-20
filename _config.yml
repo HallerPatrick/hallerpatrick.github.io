@@ -3,7 +3,7 @@ title_left    : "Patrick Haller's"
 title_right   : " Blog" # default: ""
 description   : "My blog with a focus on my research on Language Models and NLP in general."
 keywords      : "NLP, Machine Learning, Programming"
-url           : https://hallerpatrick.github.io/news
+url           : https://hallerpatrick.github.io
 baseurl       : "" # apply repo name like "/myproject" if used under gh-pages branch, else (under master branch) just leave empty/blank
 cover         : "/assets/images/favicon.ico" # image uri like logo/cover image for site seo
 
