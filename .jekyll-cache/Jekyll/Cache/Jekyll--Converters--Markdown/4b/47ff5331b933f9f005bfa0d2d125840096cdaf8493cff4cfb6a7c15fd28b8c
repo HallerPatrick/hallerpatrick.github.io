@@ -1,0 +1,31 @@
+I"
+<p>A rust crate that displays duration in a human readable format.</p>
+
+<p>This project is a port of <a href="https://github.com/imp/chrono-humanize-rs">chrono-humanize</a> and
+now has 0 dependencies.</p>
+
+<p>The reason for creation is that the famous time crate <a href="https://github.com/chronotope/chrono">chrono</a> will no longer
+be maintained. And because I work at a Open Source project <a href="https://github.com/o2sh/onefetch">onefetch</a>,
+that relies on <code class="highlighter-rouge">chrono</code> and <code class="highlighter-rouge">chrono-humanize</code>, which display time duration
+in a easy to understand/read format, I decided to port <code class="highlighter-rouge">chrono-humanize</code>,
+that just uses <code class="highlighter-rouge">std::time</code>;</p>
+
+<p>Here how to use it:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">time_humanize</span><span class="p">::</span><span class="n">HumanTime</span><span class="p">;</span>
+
+
+<span class="k">let</span> <span class="n">duration</span> <span class="o">=</span> <span class="nn">Duration</span><span class="p">::</span><span class="nf">from_secs</span><span class="p">(</span><span class="mi">60</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">human_time</span> <span class="o">=</span> <span class="nn">HumanTime</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="n">duration</span><span class="p">);</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">human_time</span><span class="p">);</span>
+<span class="c1">// Output: "in one minute"</span>
+
+
+<span class="k">let</span> <span class="n">human_time</span> <span class="o">=</span> <span class="nn">HumanTime</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="o">-</span><span class="mi">60</span><span class="p">);</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">human_time</span><span class="p">);</span>
+<span class="c1">// Output: "a minute ago"</span>
+</code></pre></div></div>
+
+<p>You can find it <a href="https://github.com/HallerPatrick/time-humanize">here</a>!</p>
+:ET

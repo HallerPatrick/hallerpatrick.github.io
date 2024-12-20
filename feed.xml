@@ -1,30 +1,380 @@
----
-layout: null
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:10 %}
+    <title></title>
+    <description>My blog with a focus on my research on Language Models and NLP in general.</description>
+    <link>https://hallerpatrick.github.io/news/</link>
+    <atom:link href="https://hallerpatrick.github.io/news/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 20 Dec 2024 19:27:02 +0100</pubDate>
+    <lastBuildDate>Fri, 20 Dec 2024 19:27:02 +0100</lastBuildDate>
+    <generator>Jekyll v4.0.1</generator>
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
-        <category>{{ tag | xml_escape }}</category>
-        {% endfor %}
-        {% for cat in post.categories %}
-        <category>{{ cat | xml_escape }}</category>
-        {% endfor %}
+        <title>Exploring Subquadratic Language Models for Sample-Efficient Pretraining</title>
+        <description>&lt;script type=&quot;text/javascript&quot; src=&quot;https://polyfill.io/v3/polyfill.min.js?features=es6&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; id=&quot;MathJax-script&quot; async=&quot;&quot; src=&quot;https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js&quot;&gt;&lt;/script&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;i class=&quot;fa fa-fire&quot; style=&quot;color:red&quot;&gt;&lt;/i&gt; Our paper got accepted at EMNLP 2024 at the CoNLL BabyLM Workshop!&lt;/p&gt;
+
+  &lt;p&gt;&lt;i class=&quot;fa fa-book&quot;&gt;&lt;/i&gt; Read the full paper &lt;a href=&quot;&quot;&gt;here&lt;/a&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;i class=&quot;fa fa-lightbulb-o&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt; &lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;This paper explores the potential of recurrent neural networks (RNNs) and other subquadratic architectures as competitive alternatives to transformer-based models in low-resource language modeling scenarios.&lt;br /&gt;
+We utilize HGRN2 (Qin et al., 2024), a recently proposed RNN-based architecture, and comparatively evaluate its effectiveness against transformer-based baselines and other subquadratic architectures (LSTM, xLSTM,
+Mamba). Our experimental results show that BABYHGRN, our HGRN2 language model, outperforms transformer-based models in both the 10M and 100M word tracks of the challenge, as measured by their performance on
+the BLiMP, EWoK, GLUE and BEAR benchmarks. Further, we show the positive impact of knowledge distillation. Our findings challenge the prevailing focus on transformer architectures and indicate the viability of RNN-based models, particularly in resource-constrained environments.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p style=&quot;color:gray;padding-top:50px&quot;&gt;&lt;i class=&quot;fa fa-circle&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt; Chapter 1&lt;/p&gt;
+&lt;h1 id=&quot;what-is-babylm&quot;&gt;What is BabyLM?&lt;/h1&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img src=&quot;/assets/images/hgrn_babylm_banner.png&quot; alt=&quot;BabyLM Chellenge&quot; width=&quot;500&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We published this paper as part of the &lt;a href=&quot;https://babylm.github.io/&quot;&gt;BabyLM Challenge&lt;/a&gt;. Let’s begin by explaining what this challenge is all about.&lt;/p&gt;
+
+&lt;p&gt;The challenge is targeted towards researchers who are interested in pretraining and/or cognitive modeling
+and optimizing pretraining given limited data inspired by human development. The primary goal is to foster research around this topic with a secondary goal of democratizing pretraining and training practices - which are typically targeted towards large, resource-rich research and industry groups.&lt;/p&gt;
+
+&lt;p&gt;This is realized through a challenge, where a restricted amount of pre-training data is allowed. They are defined as &lt;strong&gt;strict-small&lt;/strong&gt; and &lt;strong&gt;strict&lt;/strong&gt;, where a model is only allowed to be trained with &lt;strong&gt;10M&lt;/strong&gt; and &lt;strong&gt;100M&lt;/strong&gt; tokens respectively. How often the model sees the data does not matter.&lt;/p&gt;
+
+&lt;p&gt;Submitted models are evaluated on three zero-shot benchmarks  &lt;strong&gt;BLiMP&lt;/strong&gt;, &lt;strong&gt;BLiMP-Supplement&lt;/strong&gt;, and &lt;strong&gt;EWoK&lt;/strong&gt; and fine-tuned+evaluated on a subset of the &lt;strong&gt;(Super)GLUE&lt;/strong&gt; datasets.&lt;/p&gt;
+
+&lt;p style=&quot;color:gray;padding-top:50px&quot;&gt;&lt;i class=&quot;fa fa-circle&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt; Chapter 2&lt;/p&gt;
+&lt;h2 id=&quot;subquadratic-lms-as-alternatives-to-transformers&quot;&gt;Subquadratic LMs as Alternatives to Transformers&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;i class=&quot;fa fa-info-circle&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt;
+One cool thing about the BabyLM Challenge is, that it is not necessarily about pushing the benchmark scores to their limits, but to explore alternative architectures, training strategies, learning paradigms and 
+data augmentation techniques. This created a wide range of submissions and a lot of creative approaches and interesting findings. I can only recommend to checkout the proceedings of the workshop to get an overview of everything.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;TODO: Add link to proceedings&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;One of the key motivations behind our work is to explore the potential of subquadratic architectures as competitive alternatives to transformer-based models in low-resource language modeling scenarios.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;-but-why-should-we-consider-subquadratic-models-in-the-first-place&quot;&gt;&lt;i class=&quot;fa fa-question-circle&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt; &lt;em&gt;But why should we consider subquadratic models in the first place?&lt;/em&gt;&lt;/h4&gt;
+
+&lt;p&gt;Transformer-based models have become the de facto standard for a wide range of NLP tasks due to their strong performance across various benchmarks. 
+A big selling point of transformers, is their ability to process input sequences in parallel, which makes them highly efficient, scalable and therefore suitable for large-scale pretraining of Language Models.
+This overshadowed the, in comparison, sequential processing of RNNs, which are often seen as slow and computationally expensive.&lt;/p&gt;
+
+&lt;p&gt;If we had to write down the computationally complexity, it would look like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img src=&quot;/assets/images/complexity.png&quot; alt=&quot;Complexity&quot; width=&quot;500&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Doesn’t look too bad for RNNs in terms of complexity, right? The crucial point is the number of operations needed to process a sequence of length &lt;em&gt;n&lt;/em&gt;, which is linear for RNNs.
+The high computational costs of Transformers are overcome through massive parallelization of the attention mechanism, which is key to their success. While a true RNN cannot overcome this bottleneck, several recent architectures have attempted to address this issue.&lt;/p&gt;
+
+&lt;p&gt;There is a wide variety of proposed new architectures that, at least to some extend, resemble RNNs. Following shows a non-exhaustive list of subquadratic architectures:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img src=&quot;/assets/images/paper_overview_subquadratic.png&quot; alt=&quot;Complexity&quot; width=&quot;800&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;These architectures share a common goal of reducing the computational complexity of the model by introducing some kind of approximation or by
+reducing the number of operations needed to process the input sequence. This usually results in a trade-off between performance and computational efficiency. Ideally,
+a subquadratic model should be able to compete with transformer-based models in terms of performance, while being as efficient for training and more efficient for inference.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In a future post, we will dive deeper into how this is achieved through &lt;em&gt;Linear Attention&lt;/em&gt; and all the other cool stuff that is going on in the field of subquadratic models.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So that is what we looked into. We utilized &lt;strong&gt;HGRN2&lt;/strong&gt;, a recently proposed RNN-based architecture, and comparatively evaluated its effectiveness against
+transformer-based baselines and other subquadratic architectures like LSTM, xLSTM, and Mamba.&lt;/p&gt;
+
+&lt;p style=&quot;color:gray;padding-top:50px&quot;&gt;&lt;i class=&quot;fa fa-circle&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt; Chapter 3&lt;/p&gt;
+&lt;h2 id=&quot;comparative-evaluation&quot;&gt;Comparative Evaluation&lt;/h2&gt;
+
+&lt;p&gt;For a fair comparison, we trained all models on the same data and used the same hyperparameters, except for the learning rate, which was tuned individually for each model.
+We therefore conducted a learning rate sweep to find the optimal learning rate for each model. Each model was trained on the &lt;strong&gt;strict-small&lt;/strong&gt; track of the challenge for 5 epochs.
+After each epoch, we evaluated the model on the BabyLM benchmarks. Following table shows the results of our experiments:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img src=&quot;/assets/images/evaluation_results.png&quot; alt=&quot;Complexity&quot; width=&quot;800&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The evaluation revealed several interesting patterns across different model architectures.
+HGRN2 exhibited the strongest overall performance, followed closely by Mamba.
+Both models outperformed the transformer baseline, suggesting that these architectures offer distinct advantages in low-resource scenarios.&lt;/p&gt;
+
+&lt;p&gt;This makes the HGRN2 quite usefull for BabyLM and other low-resource scenarios, especially given the low computational costs of training and inference!&lt;/p&gt;
+
+&lt;p&gt;For our final submission, we wanted to pump those numbers up and decided to use knowledge distillation to further improve the performance of our model.
+We used one of the simpler setups for knowledge distillation, by training with Cross-Entropy loss and the teacher’s predictions as soft targets.&lt;/p&gt;
+
+\[Loss_{KD} = Loss_{CE} + Loss_{KD}\]
+
+&lt;p&gt;where \(Loss_{CE}\) is the Cross-Entropy loss and \(Loss_{KD}\) is the knowledge distillation loss.&lt;/p&gt;
+
+\[Loss_{KD} = KL(\sigma(p_i), \sigma(q_i))\]
+
+&lt;p&gt;where:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;\(z_t\) and \(z_s\) are the output logits of the teacher and student model respectively&lt;/li&gt;
+  &lt;li&gt;\(\sigma(z)\) is the softmax function applied to the logits \(z\)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Instead of the traditional approach of distilling from a larger to a smaller model, we used same-sized teacher and student models.
+&lt;strong&gt;Trained on the same dataset!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+    &lt;img src=&quot;/assets/images/kd_results.png&quot; alt=&quot;KD&quot; width=&quot;800&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;… Which actually worked out quite well! The knowledge distillation improved the overall performance of our model, which is quite impressive given the simplicity of the setup.&lt;/p&gt;
+
+&lt;p&gt;The organizers of the BabyLM Challenge set up this nice leaderboard, where you can see the performance of all submissions.&lt;/p&gt;
+
+&lt;iframe src=&quot;https://babylm-leaderboard-2024.hf.space&quot; frameborder=&quot;0&quot; width=&quot;850&quot; height=&quot;450&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+Its quite impressive to see how many different approaches were taken to tackle this challenge and how our really simple approach 
+can compete with being on place &lt;strong&gt;5&lt;/strong&gt; in the leaderboard.&lt;/p&gt;
+
+&lt;p&gt;For more details about our work, you can find the full paper &lt;a href=&quot;&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This, concludes our post. Here are more relevant links:&lt;/p&gt;
+
+&lt;h3 id=&quot;links&quot;&gt;Links&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2412.05149&quot;&gt;Findings of the BabyLM Challenge&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://babylm.github.io/proceedings/&quot;&gt;Proceedings of the BabyLM Workshop&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://babylm.github.io/&quot;&gt;BabyLM Challenge&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://babylm-leaderboard-2024.hf.space&quot;&gt;Leaderboard&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2311.04823&quot;&gt;HGRN Paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2404.07904&quot;&gt;HGRN2 Paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Fri, 29 Nov 2024 00:00:00 +0100</pubDate>
+        <link>https://hallerpatrick.github.io/news/blog/2024/hgrn/</link>
+        <guid isPermaLink="true">https://hallerpatrick.github.io/news/blog/2024/hgrn/</guid>
+        
+        
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>Modelling Explicit Biases in Instruction-Tuned LLMs</title>
+        <description>&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css&quot; /&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Our paper got accepted at NAACL 2024 Demo Track!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;i class=&quot;fa fa-book&quot;&gt;&lt;/i&gt; Read the full paper &lt;a href=&quot;https://aclanthology.org/2024.naacl-demo.8.pdf&quot;&gt;here&lt;/a&gt;.
+Try out the online demo &lt;a href=&quot;https://opiniongpt.informatik.hu-berlin.de/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Mon, 08 Jul 2024 00:00:00 +0200</pubDate>
+        <link>https://hallerpatrick.github.io/news/blog/2024/opinion_gpt/</link>
+        <guid isPermaLink="true">https://hallerpatrick.github.io/news/blog/2024/opinion_gpt/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Problem Extraction and Coding Challenges</title>
+        <description>&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css&quot; /&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Following post is a short summary of a paper I worked on. &lt;i class=&quot;fa fa-book&quot;&gt;&lt;/i&gt; Read the full paper &lt;a href=&quot;&quot;&gt;here&lt;/a&gt; (coming soon!).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Our paper got accepted at LREC-COLING 2024&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Everything is still under construction, I created a small page to gives a quick oveview &lt;a href=&quot;https://hallerpatrick.github.io/pecc/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Fri, 26 Apr 2024 00:00:00 +0200</pubDate>
+        <link>https://hallerpatrick.github.io/news/blog/2024/pecc/</link>
+        <guid isPermaLink="true">https://hallerpatrick.github.io/news/blog/2024/pecc/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>SOTA Dataset Generation in NLP</title>
+        <description>&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css&quot; /&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Following post is a short summary of a paper I worked on with. &lt;i class=&quot;fa fa-book&quot;&gt;&lt;/i&gt; Read the full paper &lt;a href=&quot;https://arxiv.org/pdf/2309.09582.pdf&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Our paper got accepted at EMNLP 2023 Demo Track!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In the realm of machine and especially NLP, the creation of high-quality labeled data has been a significant bottleneck. We therfore present Fabricator, a &lt;strong&gt;toolkit designed to harness the power of LLMs for generating vast, labeled datasets&lt;/strong&gt;. This approach not only promises to save time and resources but also opens new avenues for research and application in machine learning.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-it-works&quot;&gt;How It Works&lt;/h2&gt;
+
+&lt;p&gt;By prompting LLMs to produce data for specific tasks, Fabricator efficiently creates training material for downstream NLP models. Imagine generating hundreds of movie reviews with varying sentiments at the push of a button.&lt;/p&gt;
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img src=&quot;/assets/images/fabricator_overview.png&quot; alt=&quot;Fabricator&quot; width=&quot;500&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The process of learning via dataset generation. A teacher model (LLM) is prompted to generate 500 movie reviews for each sentiment (positive, negative). A smaller student PLM is trained on the generated dataset.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;versatility-and-integration&quot;&gt;Versatility and Integration&lt;/h3&gt;
+
+&lt;p&gt;Fabricator supports a wide array of NLP tasks and offering seamless integration with well-known libraries. Whether you’re working on text classification, entity recognition, or any other NLP challenge, Fabricator helps you generate the data you need.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img src=&quot;/assets/images/fabricator_template.png&quot; alt=&quot;Fabricator&quot; width=&quot;500&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;With FABRICATOR, the generation process involves a prompt template that creates the final prompt using
+all provided arguments. The generator class creates training examples until the maximum number of prompt calls is reached, or the unlabeled dataset is fully annotated. Ultimately, the generator class produces a HuggingFace Dataset instance.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;empowering-research-and-development&quot;&gt;Empowering Research and Development&lt;/h3&gt;
+
+&lt;p&gt;By providing a means to quickly generate and experiment with new datasets, Fabricator paves the way for innovative research and practical applications in NLP.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;datasets&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;load_dataset&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;haystack.nodes&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptNode&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;fabricator&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DatasetGenerator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BasePrompt&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;load_dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;processed_fewshot_imdb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;train&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BasePrompt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;task_description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Generate a {} movie review.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;label_options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;positive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;negative&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;generate_data_for_column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;prompt_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PromptNode&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;model_name_or_path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;gpt-3.5-turbo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;api_key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;OPENAI_API_KEY&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DatasetGenerator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prompt_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;generated_dataset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;prompt_template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prompt&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fewshot_dataset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fewshot_sampling_strategy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;uniform &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fewshot_examples_per_class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fewshot_sampling_column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;label&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;generated_dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_to_hub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;generated-movie-reviews&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;A script that uses FABRICATOR and generates additional movie reviews based on few-shot examples&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Looking Ahead - As the toolkit evolves, it promises to expand its capabilities, supporting an even broader range of tasks and enhancing the NLP community’s ability to tackle complex problems with novel solutions.&lt;/p&gt;
+
+&lt;p&gt;For more details, refer to the original paper: &lt;a href=&quot;https://arxiv.org/pdf/2309.09582.pdf&quot;&gt;Fabricator&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 14 Feb 2024 00:00:00 +0100</pubDate>
+        <link>https://hallerpatrick.github.io/news/blog/2024/fabricator/</link>
+        <guid isPermaLink="true">https://hallerpatrick.github.io/news/blog/2024/fabricator/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>A Rust crate to display duration of time in a human readable format</title>
+        <description>&lt;p&gt;A rust crate that displays duration in a human readable format.&lt;/p&gt;
+
+&lt;p&gt;This project is a port of &lt;a href=&quot;https://github.com/imp/chrono-humanize-rs&quot;&gt;chrono-humanize&lt;/a&gt; and
+now has 0 dependencies.&lt;/p&gt;
+
+&lt;p&gt;The reason for creation is that the famous time crate &lt;a href=&quot;https://github.com/chronotope/chrono&quot;&gt;chrono&lt;/a&gt; will no longer
+be maintained. And because I work at a Open Source project &lt;a href=&quot;https://github.com/o2sh/onefetch&quot;&gt;onefetch&lt;/a&gt;,
+that relies on &lt;code class=&quot;highlighter-rouge&quot;&gt;chrono&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;chrono-humanize&lt;/code&gt;, which display time duration
+in a easy to understand/read format, I decided to port &lt;code class=&quot;highlighter-rouge&quot;&gt;chrono-humanize&lt;/code&gt;,
+that just uses &lt;code class=&quot;highlighter-rouge&quot;&gt;std::time&lt;/code&gt;;&lt;/p&gt;
+
+&lt;p&gt;Here how to use it:&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time_humanize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HumanTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;duration&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;from_secs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;human_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;HumanTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;human_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Output: &quot;in one minute&quot;&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;human_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;HumanTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;human_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Output: &quot;a minute ago&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can find it &lt;a href=&quot;https://github.com/HallerPatrick/time-humanize&quot;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+        <pubDate>Thu, 17 Nov 2022 00:00:00 +0100</pubDate>
+        <link>https://hallerpatrick.github.io/news/blog/2022/time-humanize/</link>
+        <guid isPermaLink="true">https://hallerpatrick.github.io/news/blog/2022/time-humanize/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>A Runtime Error Debugger</title>
+        <description>&lt;p&gt;Better runtime error messages!&lt;/p&gt;
+
+&lt;p&gt;Are you also constantly seeing the runtime error message the python interpreter is giving you? It lacks some color and more debug information!&lt;/p&gt;
+
+&lt;p&gt;Get some good looking error tracebacks and beautifuly formatted last line with all its last values before you crashed the program.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/HallerPatrick/frosch/blob/master/resources/showcase.png&quot; alt=&quot;Python_Output&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What &lt;code class=&quot;highlighter-rouge&quot;&gt;frosch&lt;/code&gt; is doing under the hood is basically following:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_hook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Overwrite sys.excepthook&quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;excepthook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pytrace_excepthook&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We just overwrite the &lt;code class=&quot;highlighter-rouge&quot;&gt;sys.excepthook&lt;/code&gt;, which is the function called, when the python program
+provokes a runtime error. This is catched by the &lt;code class=&quot;highlighter-rouge&quot;&gt;cpython&lt;/code&gt; runtime and propagated through it.&lt;/p&gt;
+
+&lt;p&gt;You can find the source &lt;a href=&quot;https://github.com/HallerPatrick/frosch&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 01 Oct 2020 00:00:00 +0200</pubDate>
+        <link>https://hallerpatrick.github.io/news/blog/2020/frosch/</link>
+        <guid isPermaLink="true">https://hallerpatrick.github.io/news/blog/2020/frosch/</guid>
+        
+        
+      </item>
+    
   </channel>
 </rss>
