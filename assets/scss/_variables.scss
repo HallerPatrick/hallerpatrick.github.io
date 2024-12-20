@@ -14,6 +14,7 @@ $heading-line-height: 1.2;
 $base-border-radius: .52em;
 $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
+$smaller-spacing: $base-spacing / 4;
 $base-z-index: 0;
 
 // Colors
@@ -25,6 +26,7 @@ $blue-color: #0086B3;
 $dark-gray-color: #333;
 $medium-gray-color: #999;
 $light-gray-color: #ccc;
+$primary-orange-color: #ffb870;
 
 // Font Colors
 $base-font-color: rgba($dark-gray-color, .8);

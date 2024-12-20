@@ -80,8 +80,9 @@ blockquote {
   margin: $base-spacing 0;
   color: $dark-gray-color;
   line-height: 1.8;
-  border-left: $small-spacing solid $light-gray-color;
-  background-color: lighten($light-gray-color, 15%);
+  border-left: $smaller-spacing solid $primary-orange-color;
+  /* border-left: $small-spacing solid $light-gray-color; */
+  /* background-color: lighten($light-gray-color, 15%); */
   p {
     margin: 0;
   }

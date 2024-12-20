@@ -29,7 +29,8 @@ body {
 
 html[data-theme="light"] {
   --body-bg: #{$base-background-color};
-  --text-bg-color-accent: #{$black-color};
+  /* --text-bg-color-accent: #{$black-color}; */
+  --text-bg-color-accent: #{$primary-orange-color};
   --text-color-accent: #{$white-color};
   --text-color: #{$base-font-color};
   --action-color: #{$action-color};
@@ -57,8 +58,12 @@ a {
 }
 
 .accented {
-  background-color: var(--text-bg-color-accent);
-  color: var(--text-color-accent);
+  text-decoration: underline;
+  text-decoration-color: orange;
+  text-decoration-thickness: 3px;
+  /* background-color: var(--text-bg-color-accent); */
+  color: black;
+  font-size: 1rem;
 }
 
 
@@ -120,7 +125,7 @@ hr {
 }
 
 .link {
-  color: $blue-color;
+  color: orange;
   padding-bottom: .05em;
   border-bottom: 2px solid transparent;
 
@@ -129,7 +134,7 @@ hr {
   &:hover,
   &:focus,
   &:active {
-    border-bottom: 2px solid $blue-color;
+    border-bottom: 2px solid orange;
   }
 }
 
@@ -353,7 +358,7 @@ hr {
     &:focus,
     &:active {
       border-bottom: 2px solid transparent;
-      color: $blue-color;
+      color: orange;
     }
   }
 }

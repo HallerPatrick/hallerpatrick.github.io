@@ -1,6 +1,7 @@
 ---
 layout: post
-layout_type: "Paper/Demo"
+layout_type: "News"
+clickable: false
 title_prefix: "OpinionGPT"
 title: "Modelling Explicit Biases in Instruction-Tuned LLMs"
 comments: false
@@ -14,8 +15,6 @@ paper_link: "https://aclanthology.org/2024.naacl-demo.8.pdf"
 
 > Our paper got accepted at NAACL 2024 Demo Track!
 
-> <i class="fa fa-book"></i> Read the full paper [here](https://aclanthology.org/2024.naacl-demo.8.pdf)
-
+> <i class="fa fa-book"></i> Read the full paper [here](https://aclanthology.org/2024.naacl-demo.8.pdf).
 > Try out the online demo [here](https://opiniongpt.informatik.hu-berlin.de/)
 
-Everything else will follow soon.

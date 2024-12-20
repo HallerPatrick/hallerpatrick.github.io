@@ -1,5 +1,6 @@
 ---
 layout: post
+clickable: true
 layout_type: "Demo"
 title_prefix: "time-humanize"
 title: "A Rust crate to display duration of time in a human readable format"

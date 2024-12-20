@@ -1,5 +1,6 @@
 ---
 layout: post
+clickable: true
 layout_type: "Paper/Demo"
 title_prefix: "Fabricator"
 title: "SOTA Dataset Generation in NLP"
@@ -24,7 +25,7 @@ In the realm of machine and especially NLP, the creation of high-quality labeled
 By prompting LLMs to produce data for specific tasks, Fabricator efficiently creates training material for downstream NLP models. Imagine generating hundreds of movie reviews with varying sentiments at the push of a button.
 <div class="divider"></div>
 
-<p align="center">-
+<p align="center">
   <img src="/assets/images/fabricator_overview.png" alt="Fabricator" width="500" />
 </p>
 **The process of learning via dataset generation. A teacher model (LLM) is prompted to generate 500 movie reviews for each sentiment (positive, negative). A smaller student PLM is trained on the generated dataset.**

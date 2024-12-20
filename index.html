@@ -11,7 +11,7 @@ title: Home
   <div class="container">
     {% for post in site.posts %}
       {% unless post.next %}
-        <h2 class="category-title">{{ post.date | date: '%Y' }}</h2>
+      <h2 class="category-title">{{ post.date | date: '%Y' }}</h2>
       {% else %}
         {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
         {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
@@ -22,20 +22,33 @@ title: Home
       <article class="post-item">
         <span class="post-meta date-label">{{ post.date | date: "%b %d" }}</span>
         <div class="article-title">
-            <a class="post-link" href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">
-                <h5>({{ post.layout_type }})</h5> <span class="accented">{{ post.title_prefix }}</span>: {{ post.title }}
-            </a>
+            {% if post.clickable %}
+                <a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">
+                <h5>({{ post.layout_type }})</h5>
+                <span class="accented">{{ post.title_prefix }}</span>:
+                </a>
+                <a class="post-link" href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">
+                     {{ post.title }}
+                </a>
+            {% else %}
+                <h5>({{ post.layout_type }})</h5>
+                <span class="accented">{{ post.title_prefix }}</span>:
+                <a class="" href="" style="pointer-events: none">
+                     {{ post.title }}
+                </a>
+            {% endif %}
         </div>
         <!-- Align to the right -->
         <div style="text-align: right">
         {% if post.paper_link %}
-            <a href="{{post.paper_link}}"><i class="fa fa-book" style="color: blue"></i> Paper</a>
+            <a href="{{post.paper_link}}"><i class="fa fa-book" style="color: gray"></i> Paper</a>
         {% endif %}
         {% if post.code_link %}
             <a href="{{post.code_link}}"><i class="fa fa-code" style="color: red"></i> Code</a>
         {% endif %}
         </div>
       </article>
+      <br>
     {% endfor %}
   </div>
 
