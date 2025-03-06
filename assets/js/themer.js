@@ -31,4 +31,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 // Add event listener to the theme toggle button
-document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+// document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
