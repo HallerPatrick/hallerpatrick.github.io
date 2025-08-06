@@ -29,8 +29,7 @@ a:active {
 </h1>
 
 <p align="center">
-Sometimes we should be <a href="https://www.reddit.com/r/imsorryjon/">sorry</a> for the things we have done, but more often we<br>
-should appreciate the things others have done for us.
+Feel goodfield, not <a href="https://www.reddit.com/r/imsorryjon/">sorry</a> .
 </p>
 
 
