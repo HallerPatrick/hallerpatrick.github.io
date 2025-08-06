@@ -1,4 +1,4 @@
-I"%<style>
+I"<style>
 
 a:visited {
   color: orange;
@@ -29,14 +29,14 @@ should appreciate the things others have done for us.
 </p>
 
 <h1 align="center">
-    <img src="/assets/images/favicon.png" alt="Goodfield Logo" width="800" />
+<i class="fa fa-circle" style="color:orange"></i>
 </h1>
 
 <p align="center">
-    <img src="/assets/images/goodfield/goodfield_1.png" alt="Goodfield Logo" width="800" />
+    <img src="/assets/images/goodfield/Goodfield_1.png" alt="Goodfield Logo" width="800" />
 </p>
 
 <p align="center">
-Getting cold.
+Goodfield 1: Getting cold.
 </p>
 :ET

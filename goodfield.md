@@ -39,7 +39,7 @@ should appreciate the things others have done for us.
 </h1>
 
 <p align="center">
-    <img src="/assets/images/goodfield/goodfield_1.png" alt="Goodfield Logo" width="800" />
+    <img src="/assets/images/goodfield/Goodfield_1.png" alt="Goodfield Logo" width="800" />
 </p>
 
 <p align="center">
