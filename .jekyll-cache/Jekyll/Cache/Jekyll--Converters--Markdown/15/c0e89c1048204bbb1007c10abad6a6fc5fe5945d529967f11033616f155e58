@@ -1,0 +1,154 @@
+I"f(<script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+<script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<blockquote>
+  <p><i class="fa fa-fire" style="color:red"></i> Our paper got accepted at EMNLP 2024 at the CoNLL BabyLM Workshop!</p>
+
+  <p><i class="fa fa-book"></i> Read the full paper <a href="https://aclanthology.org/2024.conll-babylm.7/">here</a>
+<br />
+<br />
+<i class="fa fa-lightbulb-o" style="color:orange"></i> <strong>Abstract</strong></p>
+
+  <p>This paper explores the potential of recurrent neural networks (RNNs) and other subquadratic architectures as competitive alternatives to transformer-based models in low-resource language modeling scenarios.<br />
+We utilize HGRN2 (Qin et al., 2024), a recently proposed RNN-based architecture, and comparatively evaluate its effectiveness against transformer-based baselines and other subquadratic architectures (LSTM, xLSTM,
+Mamba). Our experimental results show that BABYHGRN, our HGRN2 language model, outperforms transformer-based models in both the 10M and 100M word tracks of the challenge, as measured by their performance on
+the BLiMP, EWoK, GLUE and BEAR benchmarks. Further, we show the positive impact of knowledge distillation. Our findings challenge the prevailing focus on transformer architectures and indicate the viability of RNN-based models, particularly in resource-constrained environments.</p>
+</blockquote>
+
+<p style="color:gray;padding-top:50px"><i class="fa fa-circle" style="color:orange"></i> Chapter 1</p>
+<h1 id="what-is-babylm">What is BabyLM?</h1>
+
+<p align="center">
+    <img src="/assets/images/hgrn_babylm_banner.png" alt="BabyLM Chellenge" width="500" />
+</p>
+
+<p>We published this paper as part of the <a href="https://babylm.github.io/">BabyLM Challenge</a>. Let’s begin by explaining what this challenge is all about.</p>
+
+<p>The challenge is targeted towards researchers who are interested in pretraining and/or cognitive modeling
+and optimizing pretraining given limited data inspired by human development. The primary goal is to foster research around this topic with a secondary goal of democratizing pretraining and training practices - which are typically targeted towards large, resource-rich research and industry groups.</p>
+
+<p>This is realized through a challenge, where a restricted amount of pre-training data is allowed. They are defined as <strong>strict-small</strong> and <strong>strict</strong>, where a model is only allowed to be trained with <strong>10M</strong> and <strong>100M</strong> tokens respectively. How often the model sees the data does not matter.</p>
+
+<p>Submitted models are evaluated on three zero-shot benchmarks  <strong>BLiMP</strong>, <strong>BLiMP-Supplement</strong>, and <strong>EWoK</strong> and fine-tuned+evaluated on a subset of the <strong>(Super)GLUE</strong> datasets.</p>
+
+<p style="color:gray;padding-top:50px"><i class="fa fa-circle" style="color:orange"></i> Chapter 2</p>
+<h2 id="subquadratic-lms-as-alternatives-to-transformers">Subquadratic LMs as Alternatives to Transformers</h2>
+
+<blockquote>
+  <p><i class="fa fa-info-circle" style="color:orange"></i>
+One cool thing about the BabyLM Challenge is, that it is not necessarily about pushing the benchmark scores to their limits, but to explore alternative architectures, training strategies, learning paradigms and 
+data augmentation techniques. This created a wide range of submissions and a lot of creative approaches and interesting findings. I can only recommend to checkout the proceedings of the workshop to get an overview of everything.</p>
+
+  <p>Link to Proceedings: <a href="https://aclanthology.org/volumes/2024.conll-babylm/">BabyLM Workshop</a></p>
+</blockquote>
+
+<p>One of the key motivations behind our work is to explore the potential of subquadratic architectures as competitive alternatives to transformer-based models in low-resource language modeling scenarios.</p>
+
+<p><br /></p>
+<h4 id="-but-why-should-we-consider-subquadratic-models-in-the-first-place"><i class="fa fa-question-circle" style="color:orange"></i> <em>But why should we consider subquadratic models in the first place?</em></h4>
+
+<p>Transformer-based models have become the de facto standard for a wide range of NLP tasks due to their strong performance across various benchmarks. 
+A big selling point of transformers, is their ability to process input sequences in parallel, which makes them highly efficient, scalable and therefore suitable for large-scale pretraining of Language Models.
+This overshadowed the, in comparison, sequential processing of RNNs, which are often seen as slow and computationally expensive.</p>
+
+<p>If we had to write down the computationally complexity, it would look like this:</p>
+
+<p><br /></p>
+<p align="center">
+    <img src="/assets/images/complexity.png" alt="Complexity" width="500" />
+</p>
+<p><br /></p>
+
+<p>Doesn’t look too bad for RNNs in terms of complexity, right? The crucial point is the number of operations needed to process a sequence of length <em>n</em>, which is linear for RNNs.
+The high computational costs of Transformers are overcome through massive parallelization of the attention mechanism, which is key to their success. While a true RNN cannot overcome this bottleneck, several recent architectures have attempted to address this issue.</p>
+
+<p>There is a wide variety of proposed new architectures that, at least to some extend, resemble RNNs. Following shows a non-exhaustive list of subquadratic architectures:</p>
+
+<p><br /></p>
+<p align="center">
+    <img src="/assets/images/paper_overview_subquadratic.png" alt="Complexity" width="800" />
+</p>
+<p><br /></p>
+
+<p>These architectures share a common goal of reducing the computational complexity of the model by introducing some kind of approximation or by
+reducing the number of operations needed to process the input sequence. This usually results in a trade-off between performance and computational efficiency. Ideally,
+a subquadratic model should be able to compete with transformer-based models in terms of performance, while being as efficient for training and more efficient for inference.</p>
+
+<blockquote>
+  <p>In a future post, we will dive deeper into how this is achieved through <em>Linear Attention</em> and all the other cool stuff that is going on in the field of subquadratic models.</p>
+</blockquote>
+
+<p>So that is what we looked into. We utilized <strong>HGRN2</strong>, a recently proposed RNN-based architecture, and comparatively evaluated its effectiveness against
+transformer-based baselines and other subquadratic architectures like LSTM, xLSTM, and Mamba.</p>
+
+<p style="color:gray;padding-top:50px"><i class="fa fa-circle" style="color:orange"></i> Chapter 3</p>
+<h2 id="comparative-evaluation">Comparative Evaluation</h2>
+
+<p>For a fair comparison, we trained all models on the same data and used the same hyperparameters, except for the learning rate, which was tuned individually for each model.
+We therefore conducted a learning rate sweep to find the optimal learning rate for each model. Each model was trained on the <strong>strict-small</strong> track of the challenge for 5 epochs.
+After each epoch, we evaluated the model on the BabyLM benchmarks. Following table shows the results of our experiments:</p>
+
+<p><br /></p>
+<p align="center">
+    <img src="/assets/images/evaluation_results.png" alt="Complexity" width="800" />
+</p>
+<p><br /></p>
+
+<p>The evaluation revealed several interesting patterns across different model architectures.
+HGRN2 exhibited the strongest overall performance, followed closely by xLSTM and Mamba.
+Both models outperformed the transformer baseline, suggesting that these architectures offer distinct advantages in low-resource scenarios.</p>
+
+<p>This makes the HGRN2 quite usefull for BabyLM and other low-resource scenarios, especially given the low computational costs of training and inference!</p>
+
+<p>For our final submission, we wanted to pump those numbers up and decided to use knowledge distillation to further improve the performance of our model.
+We used one of the simpler setups for knowledge distillation, by training with Cross-Entropy loss and the teacher’s predictions as soft targets.</p>
+
+\[Loss_{KD} = Loss_{CE} + Loss_{KD}\]
+
+<p>where \(Loss_{CE}\) is the Cross-Entropy loss and \(Loss_{KD}\) is the knowledge distillation loss.</p>
+
+\[Loss_{KD} = KL(\sigma(p_i), \sigma(q_i))\]
+
+<p>where:</p>
+<ul>
+  <li>\(z_t\) and \(z_s\) are the output logits of the teacher and student model respectively</li>
+  <li>\(\sigma(z)\) is the softmax function applied to the logits \(z\)</li>
+</ul>
+
+<p>Instead of the traditional approach of distilling from a larger to a smaller model, we used same-sized teacher and student models.
+<strong>Trained on the same dataset!</strong></p>
+
+<p><br /></p>
+<p align="center">
+    <img src="/assets/images/kd_results.png" alt="KD" width="800" />
+</p>
+<p><br /></p>
+
+<p>… Which actually worked out quite well! The knowledge distillation improved the overall performance of our model, which is quite impressive given the simplicity of the setup.</p>
+
+<p>The organizers of the BabyLM Challenge set up this nice leaderboard, where you can see the performance of all submissions.</p>
+
+<iframe src="https://babylm-leaderboard-2024.hf.space" frameborder="0" width="850" height="450"></iframe>
+
+<p><br />
+<br />
+Its quite impressive to see how many different approaches were taken to tackle this challenge and how our really simple approach 
+can compete with being on place <strong>5</strong> in the leaderboard.</p>
+
+<p>For more details about our work, you can find the full paper <a href="">here</a>.</p>
+
+<p>This, concludes our post. Here are more relevant links:</p>
+
+<h3 id="links">Links</h3>
+
+<ul>
+  <li><a href="https://arxiv.org/abs/2412.05149">Findings of the BabyLM Challenge</a></li>
+  <li><a href="https://babylm.github.io/proceedings/">Proceedings of the BabyLM Workshop</a></li>
+  <li><a href="https://babylm.github.io/">BabyLM Challenge</a></li>
+  <li><a href="https://babylm-leaderboard-2024.hf.space">Leaderboard</a></li>
+  <li><a href="https://arxiv.org/abs/2311.04823">HGRN Paper</a></li>
+  <li><a href="https://arxiv.org/abs/2404.07904">HGRN2 Paper</a></li>
+</ul>
+
+:ET

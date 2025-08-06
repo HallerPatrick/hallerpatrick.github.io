@@ -1,0 +1,80 @@
+I"a<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+<blockquote>
+  <p>Following post is a short summary of a paper I worked on with. <i class="fa fa-book"></i> Read the full paper <a href="https://arxiv.org/pdf/2309.09582.pdf">here</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p>Our paper got accepted at EMNLP 2023 Demo Track!</p>
+</blockquote>
+
+<p>In the realm of machine and especially NLP, the creation of high-quality labeled data has been a significant bottleneck. We therfore present Fabricator, a <strong>toolkit designed to harness the power of LLMs for generating vast, labeled datasets</strong>. This approach not only promises to save time and resources but also opens new avenues for research and application in machine learning.</p>
+
+<h2 id="how-it-works">How It Works</h2>
+
+<p>By prompting LLMs to produce data for specific tasks, Fabricator efficiently creates training material for downstream NLP models. Imagine generating hundreds of movie reviews with varying sentiments at the push of a button.</p>
+<div class="divider"></div>
+
+<p align="center">
+  <img src="/assets/images/fabricator_overview.png" alt="Fabricator" width="500" />
+</p>
+<p><strong>The process of learning via dataset generation. A teacher model (LLM) is prompted to generate 500 movie reviews for each sentiment (positive, negative). A smaller student PLM is trained on the generated dataset.</strong></p>
+
+<hr />
+
+<div class="divider"></div>
+
+<h3 id="versatility-and-integration">Versatility and Integration</h3>
+
+<p>Fabricator supports a wide array of NLP tasks and offering seamless integration with well-known libraries. Whether you’re working on text classification, entity recognition, or any other NLP challenge, Fabricator helps you generate the data you need.</p>
+
+<p align="center">
+  <img src="/assets/images/fabricator_template.png" alt="Fabricator" width="500" />
+</p>
+
+<p><strong>With FABRICATOR, the generation process involves a prompt template that creates the final prompt using
+all provided arguments. The generator class creates training examples until the maximum number of prompt calls is reached, or the unlabeled dataset is fully annotated. Ultimately, the generator class produces a HuggingFace Dataset instance.</strong></p>
+<div class="divider"></div>
+
+<h3 id="empowering-research-and-development">Empowering Research and Development</h3>
+
+<p>By providing a means to quickly generate and experiment with new datasets, Fabricator paves the way for innovative research and practical applications in NLP.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">from</span> <span class="nn">haystack.nodes</span> <span class="kn">import</span> <span class="n">PromptNode</span>
+<span class="kn">from</span> <span class="nn">fabricator</span> <span class="kn">import</span> <span class="n">DatasetGenerator</span><span class="p">,</span> <span class="n">BasePrompt</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s">"processed_fewshot_imdb"</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s">"train"</span><span class="p">)</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">BasePrompt</span><span class="p">(</span>
+    <span class="n">task_description</span><span class="o">=</span><span class="s">"Generate a {} movie review."</span><span class="p">,</span>
+    <span class="n">label_options</span><span class="o">=</span><span class="p">[</span><span class="s">"positive"</span><span class="p">,</span> <span class="s">"negative"</span><span class="p">],</span>
+    <span class="n">generate_data_for_column</span><span class="o">=</span><span class="s">"text"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">prompt_node</span> <span class="o">=</span> <span class="n">PromptNode</span> <span class="p">(</span>
+    <span class="n">model_name_or_path</span><span class="o">=</span><span class="s">"gpt-3.5-turbo"</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"OPENAI_API_KEY"</span><span class="p">),</span>
+    <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">generator</span> <span class="o">=</span> <span class="n">DatasetGenerator</span><span class="p">(</span><span class="n">prompt_node</span><span class="p">)</span>
+<span class="n">generated_dataset</span> <span class="o">=</span> <span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">(</span>
+    <span class="n">prompt_template</span><span class="o">=</span><span class="n">prompt</span> <span class="p">,</span>
+    <span class="n">fewshot_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span>
+    <span class="n">fewshot_sampling_strategy</span><span class="o">=</span><span class="s">"uniform "</span><span class="p">,</span>
+    <span class="n">fewshot_examples_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">fewshot_sampling_column</span><span class="o">=</span><span class="s">"label"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">generated_dataset</span><span class="p">.</span><span class="n">push_to_hub</span><span class="p">(</span><span class="s">"generated-movie-reviews"</span><span class="p">)</span>
+</code></pre></div></div>
+<p><strong>A script that uses FABRICATOR and generates additional movie reviews based on few-shot examples</strong></p>
+
+<div class="divider"></div>
+
+<p>Looking Ahead - As the toolkit evolves, it promises to expand its capabilities, supporting an even broader range of tasks and enhancing the NLP community’s ability to tackle complex problems with novel solutions.</p>
+
+<p>For more details, refer to the original paper: <a href="https://arxiv.org/pdf/2309.09582.pdf">Fabricator</a></p>
+
+:ET

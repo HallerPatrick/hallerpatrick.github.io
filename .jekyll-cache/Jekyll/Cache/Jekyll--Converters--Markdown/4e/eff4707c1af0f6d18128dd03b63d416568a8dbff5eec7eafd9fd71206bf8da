@@ -1,0 +1,20 @@
+I"7<p>Better runtime error messages!</p>
+
+<p>Are you also constantly seeing the runtime error message the python interpreter is giving you? It lacks some color and more debug information!</p>
+
+<p>Get some good looking error tracebacks and beautifuly formatted last line with all its last values before you crashed the program.</p>
+
+<p><img src="https://github.com/HallerPatrick/frosch/blob/master/resources/showcase.png" alt="Python_Output" /></p>
+
+<p>What <code class="highlighter-rouge">frosch</code> is doing under the hood is basically following:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">_hook</span><span class="p">():</span>
+    <span class="s">"""Overwrite sys.excepthook"""</span>
+    <span class="n">sys</span><span class="p">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="n">pytrace_excepthook</span>
+</code></pre></div></div>
+
+<p>We just overwrite the <code class="highlighter-rouge">sys.excepthook</code>, which is the function called, when the python program
+provokes a runtime error. This is catched by the <code class="highlighter-rouge">cpython</code> runtime and propagated through it.</p>
+
+<p>You can find the source <a href="https://github.com/HallerPatrick/frosch">here</a></p>
+:ET
