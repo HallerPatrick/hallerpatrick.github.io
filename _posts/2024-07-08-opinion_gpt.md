@@ -11,10 +11,7 @@ paper_link: "https://aclanthology.org/2024.naacl-demo.8.pdf"
 
 ---
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 > Our paper got accepted at NAACL 2024 Demo Track!
 
 > <i class="fa fa-book"></i> Read the full paper [here](https://aclanthology.org/2024.naacl-demo.8.pdf).
 > Try out the online demo [here](https://opiniongpt.informatik.hu-berlin.de/)
-

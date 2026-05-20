@@ -11,13 +11,11 @@ paper_link: "https://arxiv.org/pdf/2309.09582.pdf"
 code_link: "https://github.com/flairNLP/fabricator"
 ---
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-> Following post is a short summary of a paper I worked on with. <i class="fa fa-book"></i> Read the full paper [here](https://arxiv.org/pdf/2309.09582.pdf).  
+> The following post is a short summary of a paper I worked on. <i class="fa fa-book"></i> Read the full paper [here](https://arxiv.org/pdf/2309.09582.pdf).  
 
 > Our paper got accepted at EMNLP 2023 Demo Track!
 
-In the realm of machine and especially NLP, the creation of high-quality labeled data has been a significant bottleneck. We therfore present Fabricator, a **toolkit designed to harness the power of LLMs for generating vast, labeled datasets**. This approach not only promises to save time and resources but also opens new avenues for research and application in machine learning.
+In the realm of machine learning, and especially NLP, the creation of high-quality labeled data has been a significant bottleneck. We therefore present Fabricator, a **toolkit designed to harness the power of LLMs for generating vast, labeled datasets**. This approach not only promises to save time and resources but also opens new avenues for research and application in machine learning.
 
 
 ## How It Works
@@ -87,4 +85,3 @@ generated_dataset.push_to_hub("generated-movie-reviews")
 Looking Ahead - As the toolkit evolves, it promises to expand its capabilities, supporting an even broader range of tasks and enhancing the NLP community's ability to tackle complex problems with novel solutions.
 
 For more details, refer to the original paper: [Fabricator](https://arxiv.org/pdf/2309.09582.pdf)
-

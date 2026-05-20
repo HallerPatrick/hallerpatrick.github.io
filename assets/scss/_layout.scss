@@ -62,7 +62,7 @@ a {
   text-decoration-color: orange;
   text-decoration-thickness: 3px;
   /* background-color: var(--text-bg-color-accent); */
-  color: black;
+  color: var(--text-color);
   font-size: 1rem;
 }
 
@@ -228,6 +228,10 @@ hr {
 
 }
 
+.post-actions {
+  text-align: right;
+}
+
 .post-meta {
   color: $medium-gray-color;
   text-transform: uppercase;
@@ -327,6 +331,44 @@ hr {
   }
 }
 
+.post-image {
+  display: block;
+  width: 100%;
+  margin: $base-spacing 0;
+}
+
+.post-video {
+  display: block;
+  width: 100%;
+  max-height: 75vh;
+  margin: $base-spacing 0;
+  background: $black-color;
+}
+
+.post-video-small {
+  max-width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table-source {
+  margin-top: -$small-spacing;
+  text-align: right;
+  font-size: rem(11);
+  color: $medium-gray-color;
+}
+
+.muted-table-text {
+  display: block;
+  color: $medium-gray-color;
+  font-size: rem(11);
+}
+
+.centered-note {
+  text-align: center;
+  font-size: rem(24);
+}
+
 .divider {
   border-top: 0.2em solid lighten($light-gray-color, 13%);
   margin-bottom: $base-spacing * 2;
@@ -362,4 +404,3 @@ hr {
     }
   }
 }
-

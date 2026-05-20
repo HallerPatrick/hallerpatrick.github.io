@@ -4,19 +4,16 @@ title: About
 permalink: /about/
 ---
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 Hey!
 
-I am Patrick Haller. A PhD student in the field of Natural Language Processing and Machine Learning.
+I am Patrick Haller, a PhD student working on Natural Language Processing and Machine Learning.
 
-```cpp
-// TODO(PHA): Add something here
-```
+My current research interests are efficient and sample-efficient language models, with a broader focus on how language models can be trained, adapted, and evaluated under practical constraints.
+
+This site collects notes, papers, projects, and small technical experiments from that work.
 
 Contact:
 
 <i class="fa fa-envelope"></i> [E-Mail](mailto:patrickhaller40@googlemail.com)<br>
 <i class="fa fa-github"></i> [Github](https://github.com/HallerPatrick)<br>
 <i class="fa fa-linkedin"></i> [LinkedIn](https://www.linkedin.com/in/patrick-haller-651493126)
-

@@ -15,6 +15,10 @@ function toggleTheme() {
 // Function to update the icon based on the current theme
 function updateIcon(theme) {
     const icon = document.querySelector('#theme-toggle i');
+    if (!icon) {
+        return;
+    }
+
     if (theme === 'dark') {
         icon.classList.remove('fa-sun');
         icon.classList.add('fa-moon');
@@ -26,9 +30,23 @@ function updateIcon(theme) {
 
 // Set the initial theme when the page loads
 document.addEventListener('DOMContentLoaded', (event) => {
+    setDesignMode();
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
 });
 
 // Add event listener to the theme toggle button
 // document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+function setDesignMode() {
+    const params = new URLSearchParams(window.location.search);
+    const requestedDesign = params.get('design');
+    const knownDesigns = ['classic', 'console'];
+
+    if (requestedDesign && knownDesigns.includes(requestedDesign)) {
+        localStorage.setItem('design', requestedDesign);
+    }
+
+    const savedDesign = localStorage.getItem('design') || 'classic';
+    document.documentElement.setAttribute('data-design', savedDesign);
+}
