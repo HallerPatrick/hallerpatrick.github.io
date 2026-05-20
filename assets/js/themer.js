@@ -47,6 +47,6 @@ function setDesignMode() {
         localStorage.setItem('design', requestedDesign);
     }
 
-    const savedDesign = localStorage.getItem('design') || 'classic';
+    const savedDesign = localStorage.getItem('design') || 'console';
     document.documentElement.setAttribute('data-design', savedDesign);
 }
